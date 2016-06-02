@@ -1,8 +1,8 @@
-var passengers = [ {name: "Jane Doloop", paid: true, ticket: "coach" },
-				   {name: "Dr. Evel", paid: false, ticket: "firstclass" },
-				   {name: "Sue Property", paid: true, ticket: "firstclass" },
-				   {name: "John Funcall", paid: true, ticket: "coach" } ];
-function processPassengers (passengers, test) {
+var passengers = [  { name: "Jane Doloop", paid: true, ticket: "coach" },
+					{ name: "Dr. Evel", paid: true, ticket: "firstclass" },
+					{ name: "Sue Property", paid: false, ticket: "firstclass" },
+					{ name: "John Funcall", paid: true, ticket: "premium" } ];
+function processPassengers(passengers, test) {
 	for (var i = 0; i < passengers.length; i++) {
 		if (test(passengers[i])) {
 			return false;
@@ -10,8 +10,8 @@ function processPassengers (passengers, test) {
 	}
 	return true;
 }
-function checkNoFlyList(passengers) {
-	return (passengers.name === "Dr. Evel");
+function checkNoFlyList(passenger) {
+	return (passenger.name === "Dr. Evel");
 }
 function checkNotPaid(passenger) {
 	return (!passenger.paid);
@@ -19,7 +19,7 @@ function checkNotPaid(passenger) {
 function printPassenger(passenger) {
 	var message = passenger.name;
 	if (passenger.paid === true) {
-		message = message + " has Paid";
+		message = message + " has paid";
 	} else {
 		message = message + " has not paid";
 	}
@@ -28,62 +28,62 @@ function printPassenger(passenger) {
 }
 var allCanFly = processPassengers(passengers, checkNoFlyList);
 if (!allCanFly) {
-	console.log("The plane can't take off: we have a passenger on the no-fly-list.");	
+	console.log("The plane can't take off: we have a passenger on the no fly list.");
 }
-var allPaid = processPassengers(passengers, checkNoPaid);
+var allPaid = processPassengers(passengers, checkNotPaid);
 if (!allPaid) {
 	console.log("The plane can't take off: not everyone has paid.");
 }
 processPassengers(passengers, printPassenger);
-function createDrinkOrder(passenger){
+function createDrinkOrder(passenger) {
 	var orderFunction;
-	if (passengers.ticket === "firstclass") {
+	if (passenger.ticket === "firstclass") {
 		orderFunction = function() {
-			alert("would you like a cocktail or wine?");
+			alert("Would you like a cocktail or wine?");
 		};
-		
+	} else if (passenger.ticket === "premium") {
+		orderFunction = function() {
+			alert("Would you like wine, cola or water?");
+		};
 	} else {
-		orderFunction = function () {
-			alert("Your choice is cola or water.")	
+		orderFunction = function() {
+			alert("Your choice is cola or water.");
 		};
-
-		
-			
 	}
 	return orderFunction;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function createDinnerOrder(passenger) {
+	var orderFunction;
+	if (passenger.ticket === "firstclass") {
+		orderFunction = function() {
+			alert("Would you like chicken or pasta?");
+		};
+	} else if (passenger.ticket === "premium") {
+		orderFunction = function() {
+			alert("Would you like a snack box or cheese plate?");
+		};
+	} else {
+		orderFunction = function() {
+			alert("Would you like peanuts or pretzels?");
+		};
+	}
+	return orderFunction;
+}
+function pickupTrash() {
+	alert("Can I have your trash, please?");
+}
 function serveCustomer(passenger) {
-	var getDrinkOrderFunction = createDrinkOrder;
-	
+	var getDrinkOrderFunction = createDrinkOrder(passenger);
+	var getDinnerOrderFunction = createDinnerOrder(passenger);
+	getDrinkOrderFunction();
+
+	getDinnerOrderFunction();
+	getDrinkOrderFunction();
+	getDrinkOrderFunction();
+
 	getDrinkOrderFunction();
 	
-	
-	getDrinkOrderFunction();
-	getDrinkOrderFunction();
-	
-	getDrinkOrderFunction();
-	
-	
+	pickupTrash();
 }
 function servePassengers(passengers) {
 	for (var i = 0; i < passengers.length; i++) {
