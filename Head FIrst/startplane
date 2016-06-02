@@ -18,7 +18,7 @@ function checkNotPaid(passenger) {
 }
 function printPassenger(passenger) {
 	var message = passenger.name;
-	if (passenger.paid) {
+	if (passenger.paid === true) {
 		message = message + " has paid";
 	} else {
 		message = message + " has not paid";
@@ -26,24 +26,14 @@ function printPassenger(passenger) {
 	console.log(message);
 	return false;
 }
-//
-// plane can only fly if every passenger is on the fly flist
-//
 var allCanFly = processPassengers(passengers, checkNoFlyList);
 if (!allCanFly) {
 	console.log("The plane can't take off: we have a passenger on the no fly list.");
 }
-//
-// plane can only fly if every passenger has paid
-//
 var allPaid = processPassengers(passengers, checkNotPaid);
 if (!allPaid) {
 	console.log("The plane can't take off: not everyone has paid.");
 }
-//
-// we don't care about the result here; we're just using 
-// processPassengers to display the passenger list
-//
 processPassengers(passengers, printPassenger);
 function createDrinkOrder(passenger) {
 	var orderFunction;
@@ -86,13 +76,13 @@ function serveCustomer(passenger) {
 	var getDrinkOrderFunction = createDrinkOrder(passenger);
 	var getDinnerOrderFunction = createDinnerOrder(passenger);
 	getDrinkOrderFunction();
-	// get dinner order
+
 	getDinnerOrderFunction();
 	getDrinkOrderFunction();
 	getDrinkOrderFunction();
-	// show movie
+
 	getDrinkOrderFunction();
-	// pick up trash
+	
 	pickupTrash();
 }
 function servePassengers(passengers) {
