@@ -1,0 +1,83 @@
+var passengers = [ {name: "Jane Doloop", paid: true, ticket: "coach" },
+				   {name: "Dr. Evel", paid: false, ticket: "firstclass" },
+				   {name: "Sue Property", paid: true, ticket: "firstclass" },
+				   {name: "John Funcall", paid: true, ticket: "coach" } ];
+
+function processPassengers (passengers, testFunction) {
+	for (var i = 0; i < passengers.length; i++) {
+		if (testFunction(passengers[i])) {
+			return false;
+		}
+	}
+	return true;
+
+}
+
+
+function checkNoFlyList(passengers) {
+	return (passengers.name === "Dr. Evel");
+	
+	}
+
+function checkNoPaid(passengers) {
+	return (!passengers.paid);
+	
+}
+var allCanFly = processPassengers(passengers, checkNoFlyList);
+if (!allCanFly) {
+	console.log("The plane can't take off: we have a passenger on the no-fly-list.");
+	
+}
+
+var allPaid = processPassengers(passengers, checkNoPaid);
+if (!allPaid) {
+	console.log("The plane can't take off: not everyone has paid.");
+}
+function printPassenger(passenger) {
+	var message = passenger.name;
+	
+	if (passenger.paid === true) {
+		message = message + " has Paid";
+	} else {
+		message = message + " has not paid";
+	}
+	console.log(message);
+	return false;
+	
+}
+processPassengers(passengers, printPassenger);
+
+function createDrinkOrder(passenger){
+	var orderFunction;
+	
+	if (passengers.ticket === "firstclass") {
+		orderFunction = function() {
+			alert("would you like a cocktail or wine?");
+		};
+		
+	} else {
+		orderFunction = function () {
+			alert("Your choice is cola or water.")	
+		};
+
+	}
+	
+	
+}
+
+function serveCustomer(passenger) {
+	var getDrinkOrderFunction = createDrinkOrder;
+	getDrinkOrderFunction();
+	
+	getDrinkOrderFunction();
+	getDrinkOrderFunction();
+	
+	getDrinkOrderFunction();
+}
+
+function servePassengers(passengers) {
+	for (var i = 0; i < passengers.length; i++) {
+		serveCustomer(passengers[i])
+	}
+}
+servePassengers(passengers);
